@@ -10,4 +10,14 @@ const getBaseUrl = () => {
   return ''
 }
 
+// 获取 cdn 前缀 url
+export const getCDNPrefix = () => {
+  if (['dev', 'test'].includes(ENV)) {
+    return 'test/cdn';
+  }
+  return 'prod/cdn';
+};
+
 export const baseUrl = getBaseUrl() // 获取接口地址前缀
+
+export const cdnPrefix = getCDNPrefix() // 获取CDN地址前缀

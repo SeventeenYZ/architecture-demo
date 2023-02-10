@@ -26,6 +26,8 @@ const removePending = (config: AxiosRequestConfig) => {
     }
     return false
 };
+
+// 请求拦截器一般做防止快速点击请求 => 加密(也可以在get、post中做)等
 axios.interceptors.request.use(
     (config) => {
         repeatConfig = { url: config.url, method: config.method, data: config.data }
@@ -42,6 +44,8 @@ axios.interceptors.request.use(
     (error) => Promise.reject(error),
 );
 
+// 响应拦截器一般要then(检查http状态码) => then(检查响应体状态码) =>
+// catch(是否是特殊错误码，是则做特殊操作，不是则弹错误提示)
 axios.interceptors.response.use(
     (res) => {
         removePending(repeatConfig);
